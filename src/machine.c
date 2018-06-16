@@ -8,7 +8,7 @@
 
 
 BinaryLoader_t *blt;
-Stack_t *stack;
+Stack_t  stack;
 byte_t instruction;
 
 int programCounter = 0;
@@ -18,6 +18,9 @@ FILE * input_file;
 
 int init_ijvm(char *binary_file)
 {
+
+    // Create the stack
+    createStack(&stack,10000);
     // Implement loading of binary here
     blt = (BinaryLoader_t *)malloc(sizeof(BinaryLoader_t));
     BinaryLoader(blt, binary_file);
@@ -59,66 +62,66 @@ int get_program_counter()//how far in instructions
 int tos()//Return top element of the stack
 {
 
-    return swap_uint32(getTop(stack));
+    return swap_uint32(getTop(&stack));
 
 }
 
 // TODO: add frame pointer
 word_t * get_stack(){
-  return stack->array;
+  return stack.array;
 }
 
 
 void executeBipush()
 {
     word_t arg = blt->data[programCounter + 1];
-    push(stack, swap_uint32(arg));
+    push(&stack, swap_uint32(arg));
     programCounter += 2;
 }
 
 void executeIadd()//pop as big endian execute the add as little endian and push back in big endian
 {
-    word_t arg1 = pop(stack);
-    word_t arg2 = pop(stack);
+    word_t arg1 = pop(&stack);
+    word_t arg2 = pop(&stack);
     word_t res = swap_uint32(arg1) + swap_uint32(arg2);
 
-    push(stack,swap_uint32(res));
+    push(&stack,swap_uint32(res));
     programCounter +=1;
 }
 
 void executeIsub()
 {
-    word_t arg1 = pop(stack);
-    word_t arg2 = pop(stack);
+    word_t arg1 = pop(&stack);
+    word_t arg2 = pop(&stack);
     word_t res = swap_uint32(arg2) - swap_uint32(arg1);
 
-    push(stack, swap_uint32(res));
+    push(&stack, swap_uint32(res));
     programCounter += 1;
 }
 void executeIand()
 {
-    word_t arg1 = swap_uint32(pop(stack));//swap to little endian in order to and both args and then swap to push back in big endian
-    word_t arg2 = swap_uint32(pop(stack));
+    word_t arg1 = swap_uint32(pop(&stack));//swap to little endian in order to and both args and then swap to push back in big endian
+    word_t arg2 = swap_uint32(pop(&stack));
     word_t res = arg1 & arg2;
 
-    push(stack, swap_uint32(res));
+    push(&stack, swap_uint32(res));
     programCounter += 1;
 }
 
 void executeIor()
 {
-    word_t arg1 = swap_uint32(pop(stack));
-    word_t arg2 = swap_uint32(pop(stack));
+    word_t arg1 = swap_uint32(pop(&stack));
+    word_t arg2 = swap_uint32(pop(&stack));
     word_t res = arg1 | arg2;
 
-    push(stack, swap_uint32(res));
+    push(&stack, swap_uint32(res));
     programCounter += 1;
 }
 
 void executeDup()
 {
-    word_t res = getTop(stack);
-    push(stack, res);
+    word_t res = getTop(&stack);
+    push(&stack, res);
     programCounter += 1;
 }
 

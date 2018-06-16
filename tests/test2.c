@@ -130,6 +130,7 @@ void test_simple_stack_operations()
 
 int main()
 {
+
     RUN_TEST(test_simple_bipush);
     RUN_TEST(test_signed_bipush);
     RUN_TEST(test_simple_iadd);

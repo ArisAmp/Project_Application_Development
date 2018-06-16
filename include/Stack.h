@@ -10,7 +10,7 @@ typedef struct Stack {
 
 }Stack_t;
 
-void createStack(int size);
+void createStack(Stack_t*,int size);
 void isFull (Stack_t* );
 void isEmpty (Stack_t* );
 void push (Stack_t* , word_t );
