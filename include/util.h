@@ -1,5 +1,6 @@
 #ifndef UTIL_H
 #define UTIL_H
+#include "ijvm.h"
 
 /* debug print */
 #ifdef DEBUG
@@ -9,8 +10,6 @@
 #else
 #define dprintf(...)
 #endif
-uint32_t swap_uint32(uint32_t num){
-    return ((num>>24)&0xff) | ((num<<8)&0xff0000) | ((num>>8)&0xff00) | ((num<<24)&0xff000000);
-}
 
+word_t swap_uint32(word_t);
 #endif
