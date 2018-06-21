@@ -25,7 +25,7 @@ void createStack(Stack_t *stack, unsigned int size){
 
     if (contents == NULL) {
         fprintf(stderr, "Insufficient memory to initialize stack.\n");
-        exit(1);  /* Exit, returning error code. */
+        exit(1);  // Exit, returning error code. 
     }
 
     stack->array = contents;
@@ -62,7 +62,7 @@ void push(Stack_t *stack, word_t element){
     stack->top++;
     stack->array[stack->top] = element;
 
-    printf("%x pushed to stack\n", element);
+//    printf("%x pushed to stack\n", element);
 }
 
 //Implement pop function, decreases top by 1

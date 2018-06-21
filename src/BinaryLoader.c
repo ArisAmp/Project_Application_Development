@@ -37,7 +37,6 @@ int BinaryLoader (BinaryLoader_t *buff, char *fileName){
     fseek(file, 0, SEEK_SET);
     //Allocate memory
     buff->buffer = (unsigned char *)malloc(fileLen + 1);
-    
     if (!buff->buffer){
         fprintf(stderr, "Memory error!");
         fclose(file);
@@ -45,19 +44,21 @@ int BinaryLoader (BinaryLoader_t *buff, char *fileName){
     //Read file contents into buffer
     fread(buff->buffer, fileLen, 1, file);
     fclose(file);
+    return 0; 
 }
     
 //Function to check if the binary file is a correct IJVM file
 int checkMagicBytes(BinaryLoader_t *buff){
     
-        char magicBytes[4] = {0x1d, 0xea, 0xdf, 0xad};
+        unsigned char magicBytes[4] = {0x1d, 0xea, 0xdf, 0xad};
         
         for (int i=0; i<4; i++) {
             if(buff->buffer[i] != magicBytes[i])
             {
-                return -1;            }
-            return 0;
+                return -1;            
+            }   
         }
+        return 0;
     }
 
 //Function to transform Hex to Integer

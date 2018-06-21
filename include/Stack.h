@@ -18,5 +18,6 @@ word_t pop (Stack_t* );
 word_t getTop (Stack_t* );
 int getSize (Stack_t* );
 word_t * getStack();
+void stackDestroy(Stack_t *);
 
 #endif
