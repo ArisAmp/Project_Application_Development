@@ -1,3 +1,8 @@
+# Project_Application_Development
+This repository implements an emulator capable of executing IJVM byte-code. 
+
+
+
 # Compiling
 Requires make and GCC or Clang
 
